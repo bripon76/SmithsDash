@@ -2,4 +2,4 @@
 Dashboard System for diy electical Speedometer
 
 # Demo
-![]([https://github.com/Your_Repository_Name/Your_GIF_Name.gif](https://github.com/bripon76/SmithsDash/blob/main/Demo/SmithsDashAnimation.gif))
+![]([https://raw.githubusercontent.com/bripon76/SmithsDash/main/Demo/SmithsDashAnimation.gif](https://github.com/bripon76/SmithsDash/blob/main/Demo/SmithsDashAnimation.gif))
