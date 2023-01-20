@@ -7,8 +7,12 @@
 #include <ArduinoJson.h>
 
 // Replace with your network credentials
-const char* ssid     = "SmithsDash";
+const char* ssid     = "SMITHSDash";
 const char* password = "";
+
+//Serial2
+#define RXD2 16
+#define TXD2 17
 
 // Create AsyncWebServer object on port 80
 AsyncWebServer server(80);
@@ -42,7 +46,8 @@ void appendFile(fs::FS &fs, const char * path, const char * message){
 void setup(){
 
 // Serial port for debugging purposes
-Serial.begin(115200);
+Serial.begin(9600);
+Serial2.begin(9600, SERIAL_8N1, RXD2, TXD2);
 initWebSocket();
 
 
@@ -129,18 +134,19 @@ server.on("/about.html", HTTP_GET, [](AsyncWebServerRequest *request){
   server.begin();
 }
 
-char serialBuffer[100];
+char serialBuffer[1000];
 char serialBufferPosition=0;
 void loop(){
 
 ws.cleanupClients();
 
-  if (Serial.available()) {
-      serialBuffer[serialBufferPosition]=Serial.read();
+  if (Serial2.available()) {
+      serialBuffer[serialBufferPosition]=Serial2.read();
       if (serialBuffer[serialBufferPosition]=='\n') {
         //do some kind of action
           ws.textAll(String(serialBuffer)); //this is what we send to the browser
-          appendFile(SPIFFS, "/log.txt", (serialBuffer));
+          //appendFile(SPIFFS, "/log.txt", (serialBuffer));
+          Serial.println(serialBuffer);
         serialBufferPosition=0;
         memset(serialBuffer, 0, sizeof(serialBuffer));
       } else{
